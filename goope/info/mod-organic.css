@@ -1,0 +1,134 @@
+/* ==========================================================================
+  【お知らせ(info)】を“フリーページ化”する共通セット（統合版）
+  - 日付を消す
+  - 記事タイトル(h4)を消して、上の大見出し(h2)へ転写する（JS）
+  - 本文の table/CSS は .textfield 起点で安定させる
+  - 余白はスリム化（summary:1em / textfield:0 / photo mb:0）
+========================================================================== */
+
+/* --- 1) 日付と記事タイトル(本文側)を非表示 --- */
+#main .contents_box_inner > .date,
+#main .contents_box_inner > .date_underline{
+  display: none !important;
+}
+/* 記事タイトル（本文内の h4）を消す */
+#main .contents_box_inner a h4{
+  display: none !important;
+}
+
+/* --- 2) 大見出し(h2)をテンプレ風に補強（念のため） --- */
+#main .contents_box > h2{
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Lora', YuGothic, sans-serif;
+}
+@media only screen and (max-width: 1000px){
+  #main .contents_box > h2{ font-size: 22px; }
+}
+/* 下線 */
+#main .contents_box > .title_underline{
+  width: 40px;
+  margin: 0 auto 2em;
+  border-bottom: solid 1px #3a3a3a;
+}
+@media only screen and (max-width: 1000px){
+  #main .contents_box > .title_underline{ margin: 0 auto 1em; }
+}
+
+/* --- 3) 本文（summary表 / map）.textfield 起点 --- */
+
+/* ▼ 余白の最終仕様：スリム化 */
+#content_area .textfield{
+  margin: 0 !important;          /* 2em → 0 */
+}
+#content_area .textfield .summary{
+  padding: 1em 0 !important;     /* 2em → 1em（上下だけ） */
+}
+#content_area .contents_box_inner .photo{
+  margin-bottom: 0 !important;   /* 1em → 0 */
+}
+
+/* map / summary 基本 */
+.textfield .map,
+.textfield .summary{
+  width: 100%;
+}
+
+/* map iframe */
+.textfield .map iframe{
+  width: 100%;
+  height: 400px;
+  max-width: 100%;
+}
+
+/* summary（中央寄せ＆最大幅） */
+.textfield .summary{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 表：崩れにくく（fixed + 折り返し） */
+.textfield .summary table{
+  width: 100% !important;
+  margin: 0 auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.textfield .summary tr{
+  display: table-row;
+  margin: 0;
+}
+.textfield .summary tr:first-child th,
+.textfield .summary tr:first-child td{
+  border-top: none;
+}
+.textfield .summary th,
+.textfield .summary td{
+  display: table-cell;
+  padding: 1em;
+  line-height: 1.4;
+  border: 1px solid #dadbdb;
+  border-bottom: none;
+  border-left: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  vertical-align: middle;
+}
+.textfield .summary th{
+  width: 24%;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.08em;
+  line-height: 1.25;
+}
+.textfield .summary td{
+  width: 76%;
+  border-right: none;
+}
+
+/* 字下げブロック */
+.textfield .summary td .indent{
+  padding-left: 1em;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* 1000px以下：余白感だけ微調整（最終仕様の1emを維持しつつ少しだけ詰める） */
+@media only screen and (max-width: 1000px){
+  #content_area .textfield .summary{
+    padding: 0.8em 0 !important;
+  }
+}
+
+/* スマホ：読みやすさ優先 */
+@media only screen and (max-width: 600px){
+  .textfield .summary{
+    font-size: 12px;
+    font-size: 1.2rem;
+  }
+  .textfield .summary th{ width: 35%; font-size: 1em; }
+  .textfield .summary td{ width: 65%; }
+  .textfield .summary th,
+  .textfield .summary td{ padding: 1em 5px; }
+  .textfield .map iframe{ height: 300px; }
+}
