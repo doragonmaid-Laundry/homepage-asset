@@ -1,3 +1,4 @@
+/*
 <!-- =========================================================
   FRPG: お知らせ(info)をフリーページ化（統合版・安全コピー用）
   目的：
@@ -20,7 +21,8 @@
   - 詳細ページの横幅（max-width）を上書き
   - 大見出し(.page_title)を“使うための”共通側（※フォントはCSS[2/2]へ）
 ========================================================= -->
-<style>
+*/
+
 /* ===== 0) マーカー自体は非表示 ===== */
 .frpg-marker { display: none !important; }
 
@@ -71,4 +73,3 @@ html.frpg-detail.frpg body#info #content .page_title{
 @media (max-width: 800px){
   :root{ --frpg-header-offset: 0px; }
 }
-</style>
