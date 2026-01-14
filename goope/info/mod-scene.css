@@ -1,10 +1,13 @@
+/*
 <!-- =========================================================
   [CSS 2/2] レイアウト＆フォント（テンプレ依存・見た目調整）
   方針：
     - textfield外（大見出しなど）＝ html.frpg-* セレクタで指定
     - textfield内（map/summary/table等）＝ .textfield セレクタで指定
 ========================================================= -->
-<style>
+*/
+
+
 /* =========================
   A) textfield外：大見出しの“フォント”（テンプレ依存）
   - 色・サイズ・太さ等はここで調整
@@ -114,4 +117,3 @@ html.frpg-detail.frpg body#info .textfield .summary td{
   html.frpg-detail.frpg body#info .textfield .summary th,
   html.frpg-detail.frpg body#info .textfield .summary td{ padding: 1em 5px; }
 }
-</style>
