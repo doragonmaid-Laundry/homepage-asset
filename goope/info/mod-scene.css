@@ -1,0 +1,117 @@
+<!-- =========================================================
+  [CSS 2/2] レイアウト＆フォント（テンプレ依存・見た目調整）
+  方針：
+    - textfield外（大見出しなど）＝ html.frpg-* セレクタで指定
+    - textfield内（map/summary/table等）＝ .textfield セレクタで指定
+========================================================= -->
+<style>
+/* =========================
+  A) textfield外：大見出しの“フォント”（テンプレ依存）
+  - 色・サイズ・太さ等はここで調整
+========================= */
+html.frpg-detail.frpg body#info #content .page_title{
+  /* 例：テンプレが白文字前提なら */
+  color: #fff !important;
+  font-size: 30px !important;
+  line-height: 1 !important;
+  font-weight: 400 !important;
+}
+
+/* .page_title の中に a/span が入るテンプレへの保険 */
+html.frpg-detail.frpg body#info #content .page_title a,
+html.frpg-detail.frpg body#info #content .page_title span{
+  color: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-weight: inherit !important;
+}
+
+@media (max-width: 600px){
+  html.frpg-detail.frpg body#info #content .page_title{
+    font-size: 23px !important;
+  }
+}
+
+/* =========================
+  B) textfield内：中央寄せ＆map/summary/table整形
+  - “必ず .textfield 起点”で書く（←分かりやすさ優先）
+========================= */
+html.frpg-detail.frpg body#info .textfield{
+  width: 100% !important;
+  max-width: 1000px !important;
+  margin: 0 auto !important;
+}
+
+/* map / summary も textfield 内の要素として扱う */
+html.frpg-detail.frpg body#info .textfield .map,
+html.frpg-detail.frpg body#info .textfield .summary{
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* map iframe */
+html.frpg-detail.frpg body#info .textfield .map iframe{
+  width: 100%;
+  height: 400px;
+  max-width: 100%;
+}
+@media (max-width: 600px){
+  html.frpg-detail.frpg body#info .textfield .map iframe{ height: 300px; }
+}
+
+/* summary の上下余白 */
+html.frpg-detail.frpg body#info .textfield .summary{
+  padding: 1em 0 !important;
+}
+
+/* ===== 表（テーブル）整形 + 上罫線を消す ===== */
+html.frpg-detail.frpg body#info .textfield .summary table{
+  width: 100% !important;
+  max-width: none !important;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+html.frpg-detail.frpg body#info .textfield .summary th,
+html.frpg-detail.frpg body#info .textfield .summary td{
+  padding: 1em;
+  line-height: 1.4;
+  border: 1px solid #dadbdb;
+  border-bottom: none;
+  border-left: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  vertical-align: middle;
+}
+
+/* 右端は線を消す（外枠をスッキリ） */
+html.frpg-detail.frpg body#info .textfield .summary td{
+  border-right: none;
+}
+
+/* ✅ 一番上の線（上罫線）を消す */
+html.frpg-detail.frpg body#info .textfield .summary tr:first-child th,
+html.frpg-detail.frpg body#info .textfield .summary tr:first-child td{
+  border-top: none !important;
+}
+
+/* 幅配分 */
+html.frpg-detail.frpg body#info .textfield .summary th{
+  width: 24%;
+  font-weight: 700;
+  text-align: center;
+}
+html.frpg-detail.frpg body#info .textfield .summary td{
+  width: 76%;
+}
+
+@media (max-width: 600px){
+  html.frpg-detail.frpg body#info .textfield .summary{ font-size: 1.2rem; }
+  html.frpg-detail.frpg body#info .textfield .summary th{ width: 35%; }
+  html.frpg-detail.frpg body#info .textfield .summary td{ width: 65%; }
+  html.frpg-detail.frpg body#info .textfield .summary th,
+  html.frpg-detail.frpg body#info .textfield .summary td{ padding: 1em 5px; }
+}
+</style>

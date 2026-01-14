@@ -1,0 +1,74 @@
+<!-- =========================================================
+  FRPG: お知らせ(info)をフリーページ化（統合版・安全コピー用）
+  目的：
+    1) /info（一覧）では「マーカー入り記事」を一覧から消す（CSSでチラ見え防止 + JSでDOM削除）
+    2) /info/12345（詳細）では「日付・記事タイトル」を消し、上部見出し(.page_title)へタイトル転写
+    3) map / summary（表・余白・インデント・iframe）を整形（※フォントはテンプレ依存で別ブロック）
+  使い方：
+    - 「一覧から消したい記事」の本文の一番先頭に、ここから貼り付ける
+    - data-title は空でOK（自動で拾います）
+========================================================= -->
+
+<!-- ▼▼▼ マーカー（この span が入っている記事を freepage 扱いにする） ▼▼▼ -->
+<span class="frpg-marker" data-title="" aria-hidden="true"></span>
+
+<!-- =========================================================
+  [CSS 1/2] フリーページ化（共通・CORE）
+  - マーカー非表示
+  - 一覧でマーカー記事を隠す（チラ見え防止）
+  - 詳細で日付/記事タイトルを隠す（※マーカー検出後(frpg付与後)にだけ発火）
+  - 詳細ページの横幅（max-width）を上書き
+  - 大見出し(.page_title)を“使うための”共通側（※フォントはCSS[2/2]へ）
+========================================================= -->
+<style>
+/* ===== 0) マーカー自体は非表示 ===== */
+.frpg-marker { display: none !important; }
+
+/* ===== 1) /info（一覧）でチラ見え防止 =====
+   JSでDOM削除する前に、先にCSSで隠しておく（:has 対応ブラウザのみ）
+*/
+html.frpg-list body#info .article:has(.frpg-marker),
+body.frpg-list#info .article:has(.frpg-marker){
+  display: none !important;
+}
+
+/* ===== 2) /info/xxxx（詳細）で、マーカー検出後だけ適用 =====
+   JSが html/body に .frpg を付けた時だけ発火させる
+*/
+html.frpg-detail.frpg body#info .date,
+html.frpg-detail.frpg body#info .date_underline,
+html.frpg-detail.frpg body#info .article_title{
+  display: none !important;
+}
+
+/* 写真ブロックの余白（テーマ差分の保険） */
+html.frpg-detail.frpg body#info .photo{
+  margin-bottom: 0 !important;
+}
+
+/* 詳細ページの横幅＆余白（テーマ既定の max-width を上書き） */
+html.frpg-detail.frpg body#info .article{
+  max-width: 1000px !important;
+  margin: 20px auto !important;
+}
+
+/* ===== 3) 大見出し(.page_title)を“使うための”共通側 =====
+   - ここでは「レイアウトの土台」だけ
+   - 色/フォントサイズなど“フォント系”はCSS[2/2]へ
+*/
+:root{
+  /* 固定ヘッダーの高さがテンプレで違うなら、ここだけ変えればOK */
+  --frpg-header-offset: 100px;
+}
+
+/* 見出しブロックの余白（共通で必要になりがち） */
+html.frpg-detail.frpg body#info #content .page_title{
+  margin-top: var(--frpg-header-offset) !important;
+  text-align: center !important;
+  /* padding/background はテンプレ依存になりがちなのでここでは触らない */
+}
+
+@media (max-width: 800px){
+  :root{ --frpg-header-offset: 0px; }
+}
+</style>
